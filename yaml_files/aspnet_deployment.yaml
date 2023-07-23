@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: asp-net-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: asp-net
+  template:
+    metadata:
+      labels:
+        app: asp-net
+    spec:
+      containers:
+        - name: asp-net
+          image: ${var.ecr_image_url}
+          ports:
+            - containerPort: 80
+          env:
+          #<service-name>.<namespace>.svc.cluster.local  
+            - name: MONGO_CONNECTION_STRING
+              value: "mongodb-service.default.svc.cluster.local/${mongodb_name}"
+            - name: REDIS_CONNECTION_STRING
+              value: "redis-cluster.default.svc.cluster.local"
+            - name: MSSQL_CONNECTION_STRING
+              value: "Data Source=mssql-service.default.svc.cluster.local"
+          volumeMounts:
+            - name: asp-net-vm
+              mountPath: /asp-net
+      volumes:
+        - name: asp-net-v
+          persistentVolumeClaim:
+            claimName: aspnet-pvc
+      imagePullSecrets:
+        - name: ecr-credentials

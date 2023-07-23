@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: asp-net-pv
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: aws-ebs
+  awsElasticBlockStore:
+    volumeID: ${aws_ebs_volume.ebs_storage.id"}
+    fsType: ext4
+
+
