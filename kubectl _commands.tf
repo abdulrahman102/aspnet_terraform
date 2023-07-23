@@ -95,7 +95,7 @@ resource "kubectl_manifest" "aspnet-service" {
 
 # attaching ssl to specific domain name and create lb manifestaion and attach the certificate to the hostname
 resource "aws_acm_certificate" "ssl_cert" {
-  domain_name       = "example.com"  # Replace with your domain name
+  domain_name       = var.domain_name 
   validation_method = "DNS"
 }
 
@@ -146,13 +146,13 @@ resource "kubernetes_ingress_v1" "alb_ingress" {
 } 
 
 resource "aws_route53_zone" "aspnet_domain" {
-  name = "example.com"  # Replace with your domain name
+  name = var.domain_name
 }
 
 resource "aws_route53_record" "aspnet_domain_record" {
   depends_on = [ kubernetes_ingress_v1.alb_ingress ]
   zone_id = aws_route53_zone.example_domain.zone_id
-  name    = "example.com"
+  name    = var.domain_name
   type    = "A"
 
   alias {

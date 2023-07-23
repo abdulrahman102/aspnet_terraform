@@ -30,3 +30,7 @@ variable "mongo-user-password"{
 variable "mssql_password"{
   type = string
 }
+
+variable "domain_name"{
+  type = string
+}
