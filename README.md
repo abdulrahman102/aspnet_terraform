@@ -26,4 +26,12 @@ Get the value of this command and put it as **base64config_secret** variable in 
 
 ## 3- How will terraform work ?
 ###  1\) VPC 
-After providing the needed variables the **VPC module** will start to create the vpc and subnets according to provided az and cidr blocks
+After providing the needed variables the **VPC module** will start to create the vpc and subnets according to provided az and cidr blocks with the nat and ig on the network
+> **NOTE**: You can provide the subnet and vpc cidr block as variables
+
+
+### 2\) EKS 
+After creating vpc and subnets, comes the role of **EKS module** which will create full eks cluster with eks managed instances which will take care of configurations and auto-scalling including :
+- adding security group rule to allow inbound trafic from the alb (which we will add later).  
+- attach policy to worker nodes to accept the ingress load-balancer controller.  
+> **NOTE** : you can attach any security group you prefer to the worker or master nodes
