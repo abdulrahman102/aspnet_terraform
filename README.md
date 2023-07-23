@@ -25,5 +25,5 @@ Get the value of this command and put it as **base64config_secret** variable in 
 -----
 
 ## 3- How will terraform work ?
-
-After providing the needed variables the **VPC module** will start to create the 
+###  1\) VPC 
+After providing the needed variables the **VPC module** will start to create the vpc and subnets according to provided az and cidr blocks
