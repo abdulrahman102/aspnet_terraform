@@ -40,7 +40,7 @@ After creating vpc and subnets, comes the role of **EKS module** which will crea
 The directory **yaml_files** contains all the yaml file needed for this cluster to be up and run including:
 - Storage class for dynamic volumes and statefulset 
 - Statefulset files for **Mongodb,mssql and redis**
-- Deployment of the **ASPNet** app
+- Deployment of the **ASPNet** app with enviroment vraiables of the three databases endpoints to use with the code. 
 - Secrets, configmaps, PV and pvc for different uses
 - Ingress manifstation **as a resource in terraform file** for ssl after creating record in route 53 and adding ssl in certificate management pointing to the asp.net app
 > **NOTE:** The Domain name that been purchased should be provided in tfvars 
